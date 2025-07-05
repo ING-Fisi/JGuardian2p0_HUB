@@ -29,67 +29,58 @@
 #include <netdb.h>
 #include "nvs_flash.h"
 #include "driver/gpio.h"
-#include "esp_timer.h"
 
 
-//*****************************************//
-#define CONFIG_EXAMPLE_WIFI_SSID "FisitronHUB"
-#define CONFIG_EXAMPLE_WIFI_PASSWORD "Fisitron319086"
-#define CONFIG_EXAMPLE_MAXIMUM_RETRY 30
-#define CONFIG_EXAMPLE_STATIC_IP_ADDR "10.100.0.99"
-#define CONFIG_EXAMPLE_STATIC_NETMASK_ADDR "255.255.255.0"
-#define CONFIG_EXAMPLE_STATIC_GW_ADDR "10.100.0.1"
 
+#define SPRINKLER1
 
-#define EXAMPLE_WIFI_SSID             CONFIG_EXAMPLE_WIFI_SSID
-#define EXAMPLE_WIFI_PASS             CONFIG_EXAMPLE_WIFI_PASSWORD
-#define EXAMPLE_MAXIMUM_RETRY         CONFIG_EXAMPLE_MAXIMUM_RETRY
-#define EXAMPLE_STATIC_IP_ADDR        CONFIG_EXAMPLE_STATIC_IP_ADDR
-#define EXAMPLE_STATIC_NETMASK_ADDR   CONFIG_EXAMPLE_STATIC_NETMASK_ADDR
-#define EXAMPLE_STATIC_GW_ADDR        CONFIG_EXAMPLE_STATIC_GW_ADDR
-//#ifdef CONFIG_EXAMPLE_STATIC_DNS_AUTO
-#define EXAMPLE_MAIN_DNS_SERVER       EXAMPLE_STATIC_GW_ADDR
-#define EXAMPLE_BACKUP_DNS_SERVER     "0.0.0.0"
+#ifdef SPRINKLER1
+static const char *TAG = "JGUARDIAN_HUB_SPRINKLER1";
+#endif
+#ifdef SPRINKLER2
+static const char *TAG = "JGUARDIAN_HUB_SPRINKLER2";
+#endif
+#ifdef SPRINKLER3
+static const char *TAG = "JGUARDIAN_HUB_SPRINKLER3";
+#endif
+#ifdef SPRINKLER4
+static const char *TAG = "JGUARDIAN_HUB_SPRINKLER4";
+#endif
 
-//*****************************************//
-
-static const char *TAG = "JGUARDIAN_HUB_SPRINKLER";
 
 
 //************************* RELE ******************************//
-#define GPIO_OUTPUT_IO_LED    21
+#define GPIO_OUTPUT_IO_LED    38
 #define GPIO_OUTPUT_PIN_SEL_LED  (1ULL<<GPIO_OUTPUT_IO_LED)
 
-#define GPIO_OUTPUT_IO_1    32
+#define GPIO_OUTPUT_IO_1    1
 #define GPIO_OUTPUT_PIN_SEL_0  (1ULL<<GPIO_OUTPUT_IO_1)
 
-#define GPIO_OUTPUT_IO_2    33
+#define GPIO_OUTPUT_IO_2    2
 #define GPIO_OUTPUT_PIN_SEL_1  (1ULL<<GPIO_OUTPUT_IO_2)
 
-#define GPIO_OUTPUT_IO_3    25
+#define GPIO_OUTPUT_IO_3    41
 #define GPIO_OUTPUT_PIN_SEL_2  (1ULL<<GPIO_OUTPUT_IO_3)
 
+#define GPIO_OUTPUT_IO_4    42
+#define GPIO_OUTPUT_PIN_SEL_3  (1ULL<<GPIO_OUTPUT_IO_4)
 
-//************************* INGRESSI ******************************//
-#define GPIO_INPUT_IO_IN1   19
-#define GPIO_INPUT_PIN_SEL_IN1  (1ULL<<GPIO_INPUT_IO_IN1)
+#define GPIO_OUTPUT_IO_5    45
+#define GPIO_OUTPUT_PIN_SEL_4  (1ULL<<GPIO_OUTPUT_IO_5)
 
-#define GPIO_INPUT_IO_IN2   5
-#define GPIO_INPUT_PIN_SEL_IN2  (1ULL<<GPIO_INPUT_IO_IN2)
-
-#define GPIO_INPUT_IO_IN3   16
-#define GPIO_INPUT_PIN_SEL_IN3  (1ULL<<GPIO_INPUT_IO_IN3)
-
-#define GPIO_INPUT_IO_IN4   0
-#define GPIO_INPUT_PIN_SEL_IN4  (1ULL<<GPIO_INPUT_IO_IN4)
+#define GPIO_OUTPUT_IO_6    46
+#define GPIO_OUTPUT_PIN_SEL_5  (1ULL<<GPIO_OUTPUT_IO_6)
 
 
+httpd_handle_t start_JGuardian_SERVER();
 
-
-
-httpd_handle_t start_webserver(void);
-
+esp_err_t master_init(void);
+void master_operation_func(void *arg);
+int request_modbus_info(char* response);
 
 void wifi_init_sta(void);
+
+#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "http://192.168.1.28:8070/hello_world.bin"
+void check_ota_upgrade();
 
 #endif /* MAIN_JGUARDIANHUB_H_ */

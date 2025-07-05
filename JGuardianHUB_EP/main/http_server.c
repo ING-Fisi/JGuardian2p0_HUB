@@ -41,6 +41,45 @@ httpd_handle_t start_webserver(void);
  */
 
 /* An HTTP GET handler */
+static esp_err_t request_get_rele_status(httpd_req_t *req) {
+  char *buf;
+  size_t buf_len;
+
+  char resp_str[100]; // = (const char*) req->user_ctx;
+  memset(resp_str, 0, sizeof(resp_str));
+
+  int r1 = gpio_get_level(GPIO_OUTPUT_IO_1);
+  int r2 = gpio_get_level(GPIO_OUTPUT_IO_2);
+  int r3 = gpio_get_level(GPIO_OUTPUT_IO_3);
+  int r4 = gpio_get_level(GPIO_OUTPUT_IO_4);
+  int r5 = gpio_get_level(GPIO_OUTPUT_IO_5);
+  int r6 = gpio_get_level(GPIO_OUTPUT_IO_6);
+
+
+  ESP_LOGI(TAG, "STATUS RELE %d %d %d %d %d %d", r1, r2, r3, r4, r5, r6);
+
+  sprintf(resp_str, "%d,%d,%d,%d,%d,%d", r1, r2, r3, r4, r5, r6);
+
+  /* Send response with custom headers and body set as the
+   * string passed in user context*/
+  httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
+
+  /* After sending the HTTP response the old HTTP request
+   * headers are lost. Check if HTTP request headers can be read now. */
+  //    if (httpd_req_get_hdr_value_len(req, "Host") == 0) {
+  //        ESP_LOGI(TAG, "Request headers lost");
+  //    }
+  return ESP_OK;
+}
+
+static const httpd_uri_t get_rele_status = {
+    .uri = "/get_rele_status",
+    .method = HTTP_GET,
+    .handler = request_get_rele_status,
+    /* Let's pass response string in user
+     * context to demonstrate it's usage */
+    .user_ctx = "get_rele_status!"};
+
 static esp_err_t request_get_modbus(httpd_req_t *req) {
   char *buf;
   size_t buf_len;
@@ -95,6 +134,17 @@ static esp_err_t set_rele_post_handler(httpd_req_t *req) {
 
   sscanf(buf, "RELE[%d][%d]", &rele_id, &rele_status);
 
+  if ((rele_id == 0) && (rele_status == 0)) {
+    ESP_LOGI(TAG, "RESET GPIO");
+
+    gpio_set_level(GPIO_OUTPUT_IO_1, false);
+    gpio_set_level(GPIO_OUTPUT_IO_2, false);
+    gpio_set_level(GPIO_OUTPUT_IO_3, false);
+    gpio_set_level(GPIO_OUTPUT_IO_4, false);
+    gpio_set_level(GPIO_OUTPUT_IO_5, false);
+    gpio_set_level(GPIO_OUTPUT_IO_6, false);
+  }
+
   if ((rele_id == 1) && (rele_status == 1)) {
     ESP_LOGI(TAG, "RELE1_ON");
     gpio_set_level(GPIO_OUTPUT_IO_1, true);
@@ -119,16 +169,30 @@ static esp_err_t set_rele_post_handler(httpd_req_t *req) {
     ESP_LOGI(TAG, "RELE3_OFF");
     gpio_set_level(GPIO_OUTPUT_IO_3, false);
   }
-  //	if((rele_id == 4)&&(rele_status == 1))
-  //    {
-  //		ESP_LOGI(TAG, "RELE4_ON");
-  //		gpio_set_level(GPIO_OUTPUT_IO_4, true);
-  //	}
-  //	 if((rele_id == 4)&&(rele_status == 0))
-  //    {
-  //		ESP_LOGI(TAG, "RELE4_OFF");
-  //		gpio_set_level(GPIO_OUTPUT_IO_4, false);
-  //	}
+  if ((rele_id == 4) && (rele_status == 1)) {
+    ESP_LOGI(TAG, "RELE4_ON");
+    gpio_set_level(GPIO_OUTPUT_IO_4, true);
+  }
+  if ((rele_id == 4) && (rele_status == 0)) {
+    ESP_LOGI(TAG, "RELE4_OFF");
+    gpio_set_level(GPIO_OUTPUT_IO_4, false);
+  }
+  if ((rele_id == 5) && (rele_status == 1)) {
+    ESP_LOGI(TAG, "RELE5_ON");
+    gpio_set_level(GPIO_OUTPUT_IO_5, true);
+  }
+  if ((rele_id == 5) && (rele_status == 0)) {
+    ESP_LOGI(TAG, "RELE5_OFF");
+    gpio_set_level(GPIO_OUTPUT_IO_5, false);
+  }
+  if ((rele_id == 6) && (rele_status == 1)) {
+    ESP_LOGI(TAG, "RELE6_ON");
+    gpio_set_level(GPIO_OUTPUT_IO_6, true);
+  }
+  if ((rele_id == 6) && (rele_status == 0)) {
+    ESP_LOGI(TAG, "RELE6_OFF");
+    gpio_set_level(GPIO_OUTPUT_IO_6, false);
+  }
 
   // End response
   httpd_resp_send_chunk(req, NULL, 0);
@@ -227,6 +291,7 @@ httpd_handle_t start_webserver(void) {
     // Set URI handlers
     ESP_LOGI(TAG, "Registering URI handlers");
     httpd_register_uri_handler(server, &get_modbus);
+    httpd_register_uri_handler(server, &get_rele_status);
     httpd_register_uri_handler(server, &set_rele);
 // httpd_register_uri_handler(server, &ctrl);
 // httpd_register_uri_handler(server, &any);

@@ -1,4 +1,4 @@
-/* * Data converted from /home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

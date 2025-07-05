@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "C:/Users/clott/PROGETTI/GEI/JGuardian2p0/HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 

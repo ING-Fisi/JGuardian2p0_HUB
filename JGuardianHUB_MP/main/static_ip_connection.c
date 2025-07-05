@@ -17,9 +17,13 @@
 #include <netdb.h>
 #include "nvs_flash.h"
 #include "esp_http_server.h"
+#include "esp_http_server.h"
+
 
 extern httpd_handle_t server;
 extern httpd_handle_t start_JGuardian_SERVER();
+extern void check_ota_upgrade();
+
 
 /* The examples use configuration that you can set via project configuration menu
 
@@ -32,7 +36,7 @@ extern httpd_handle_t start_JGuardian_SERVER();
 #define CONFIG_EXAMPLE_MAXIMUM_RETRY 1000
 #define CONFIG_EXAMPLE_STATIC_IP_ADDR "10.100.0.66"
 #define CONFIG_EXAMPLE_STATIC_NETMASK_ADDR "255.255.255.0"
-#define CONFIG_EXAMPLE_STATIC_GW_ADDR "192.168.0.1"
+#define CONFIG_EXAMPLE_STATIC_GW_ADDR "10.100.0.1"
 
 
 #define EXAMPLE_WIFI_SSID             CONFIG_EXAMPLE_WIFI_SSID
@@ -118,6 +122,7 @@ static void event_handler(void* arg, esp_event_base_t event_base,
         s_retry_num = 0;
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
         
+        //check_ota_upgrade();
         
         server = start_JGuardian_SERVER();
     }

@@ -10,8 +10,10 @@
 #include "mbcontroller.h"
 #include "sdkconfig.h"
 
-#define MB_PORT_NUM     (CONFIG_MB_UART_PORT_NUM)   // Number of UART port used for Modbus connection
-#define MB_DEV_SPEED    (CONFIG_MB_UART_BAUD_RATE)  // The communication speed of the UART
+
+
+
+
 
 // Note: Some pins on target chip cannot be assigned for UART communication.
 // See UART documentation for selected board and target to configure pins using Kconfig.
@@ -41,8 +43,15 @@
 // Options can be used as bit masks or parameter limits
 #define OPTS(min_val, max_val, step_val) { .opt1 = min_val, .opt2 = max_val, .opt3 = step_val }
 
+//***************************************************************************************///
+#define MB_UART_TXD 17
+#define MB_UART_RXD 18
+#define MB_PORT_NUM     2
+#define MB_DEV_SPEED    9600
 uint16_t array_modbus[128] = {0};
 #define NUM_REG 15
+
+//***************************************************************************************//*/
 
 static const char *TAG = "MASTER_TEST";
 
@@ -144,7 +153,7 @@ int request_modbus_info(char* response)
 			char array_temp[30];
 			
 			for(int i = 0;i<NUM_REG;i++)
-			{	
+			{
 				ESP_LOGI(TAG, "[%d]", array_modbus[i]);
 				memset(array_temp,0,sizeof(array_temp));
 				sprintf(array_temp,"%d;",array_modbus[i]);
@@ -304,11 +313,7 @@ esp_err_t master_init(void)
     // Initialize and start Modbus controller
     mb_communication_info_t comm = {
             .port = MB_PORT_NUM,
-#if CONFIG_MB_COMM_MODE_ASCII
-            .mode = MB_MODE_ASCII,
-#elif CONFIG_MB_COMM_MODE_RTU
             .mode = MB_MODE_RTU,
-#endif
             .baudrate = MB_DEV_SPEED,
             .parity = UART_PARITY_EVEN
     };
@@ -324,7 +329,7 @@ esp_err_t master_init(void)
                             "mb controller setup fail, returns(0x%x).", (int)err);
 
     // Set UART pin numbers
-    err = uart_set_pin(MB_PORT_NUM, CONFIG_MB_UART_TXD, CONFIG_MB_UART_RXD,
+    err = uart_set_pin(MB_PORT_NUM, MB_UART_TXD, MB_UART_RXD,
                               CONFIG_MB_UART_RTS, UART_PIN_NO_CHANGE);
     MB_RETURN_ON_FALSE((err == ESP_OK), ESP_ERR_INVALID_STATE, TAG,
         "mb serial set pin failure, uart_set_pin() returned (0x%x).", (int)err);

@@ -17,6 +17,7 @@
 #include "utility.h"
 #include "esp_mac.h"
 
+
 #include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -31,40 +32,41 @@
 
 static const char *TAG = "JGUARDIAN_HUB_MP";
 
+
+
 //************************* RELE ******************************//
-#define GPIO_OUTPUT_IO_LED    21
+#define GPIO_OUTPUT_IO_LED    38
 #define GPIO_OUTPUT_PIN_SEL_LED  (1ULL<<GPIO_OUTPUT_IO_LED)
 
-#define GPIO_OUTPUT_IO_1    32
+#define GPIO_OUTPUT_IO_1    1
 #define GPIO_OUTPUT_PIN_SEL_0  (1ULL<<GPIO_OUTPUT_IO_1)
 
-#define GPIO_OUTPUT_IO_2    33
+#define GPIO_OUTPUT_IO_2    2
 #define GPIO_OUTPUT_PIN_SEL_1  (1ULL<<GPIO_OUTPUT_IO_2)
 
-#define GPIO_OUTPUT_IO_3    25
+#define GPIO_OUTPUT_IO_3    41
 #define GPIO_OUTPUT_PIN_SEL_2  (1ULL<<GPIO_OUTPUT_IO_3)
 
+#define GPIO_OUTPUT_IO_4    42
+#define GPIO_OUTPUT_PIN_SEL_3  (1ULL<<GPIO_OUTPUT_IO_4)
 
-//************************* INGRESSI ******************************//
-#define GPIO_INPUT_IO_IN1   19
-#define GPIO_INPUT_PIN_SEL_IN1  (1ULL<<GPIO_INPUT_IO_IN1)
+#define GPIO_OUTPUT_IO_5    45
+#define GPIO_OUTPUT_PIN_SEL_4  (1ULL<<GPIO_OUTPUT_IO_5)
 
-#define GPIO_INPUT_IO_IN2   5
-#define GPIO_INPUT_PIN_SEL_IN2  (1ULL<<GPIO_INPUT_IO_IN2)
-
-#define GPIO_INPUT_IO_IN3   16
-#define GPIO_INPUT_PIN_SEL_IN3  (1ULL<<GPIO_INPUT_IO_IN3)
-
-#define GPIO_INPUT_IO_IN4   0
-#define GPIO_INPUT_PIN_SEL_IN4  (1ULL<<GPIO_INPUT_IO_IN4)
+#define GPIO_OUTPUT_IO_6    46
+#define GPIO_OUTPUT_PIN_SEL_5  (1ULL<<GPIO_OUTPUT_IO_6)
 
 
-httpd_handle_t start_webserver(void);
+httpd_handle_t start_JGuardian_SERVER();
 
 esp_err_t master_init(void);
 void master_operation_func(void *arg);
 int request_modbus_info(char* response);
 
 void wifi_init_sta(void);
+
+
+#define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "http://192.168.1.28:8070/hello_world.bin"
+void check_ota_upgrade();
 
 #endif /* MAIN_JGUARDIANHUB_H_ */

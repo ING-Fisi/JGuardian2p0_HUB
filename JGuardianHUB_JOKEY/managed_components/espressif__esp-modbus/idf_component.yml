@@ -12,4 +12,4 @@ files:
   - build*/**/*
   - '**/*.zip'
 url: https://github.com/espressif/esp-modbus
-version: 1.0.16
+version: 1.0.17
