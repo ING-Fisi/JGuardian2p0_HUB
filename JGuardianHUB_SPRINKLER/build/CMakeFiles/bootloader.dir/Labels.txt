@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader.rule
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/CMakeFiles/bootloader-complete.rule
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/biglap/PROGETTI/GEI/JGUARDIAN2p0_HUB/JGuardianHUB_SPRINKLER/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
