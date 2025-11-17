@@ -32,7 +32,8 @@ extern void check_ota_upgrade();
    the config you want - ie #define EXAMPLE_WIFI_SSID "mywifissid"
 */
 
-#define CONFIG_EXAMPLE_WIFI_SSID "FisitronHUB"
+//#define CONFIG_EXAMPLE_WIFI_SSID "FisitronHUB"
+#define CONFIG_EXAMPLE_WIFI_SSID "FisitronHUB2"
 #define CONFIG_EXAMPLE_WIFI_PASSWORD "Fisitron319086"
 #define CONFIG_EXAMPLE_MAXIMUM_RETRY 1000
 

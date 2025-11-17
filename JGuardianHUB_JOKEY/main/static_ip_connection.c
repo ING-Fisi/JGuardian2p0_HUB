@@ -29,7 +29,7 @@ extern void check_ota_upgrade();
    the config you want - ie #define EXAMPLE_WIFI_SSID "mywifissid"
 */
 
-#define CONFIG_EXAMPLE_STATIC_IP_ADDR "10.100.0.88"
+#define CONFIG_EXAMPLE_STATIC_IP_ADDR "10.100.0.89"
 
 #define CONFIG_EXAMPLE_WIFI_SSID "FisitronHUB"
 #define CONFIG_EXAMPLE_WIFI_PASSWORD "Fisitron319086"

@@ -1,4 +1,4 @@
-# Install script for directory: C:/ESPRESSIF/esp-idf-v5.4.2/components/bootloader/subproject
+# Install script for directory: C:/Users/LENOVO/ESPRESSIF/esp-idf-v5.4.2/components/bootloader/subproject
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,12 +34,12 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Users/clott/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump.exe")
+  set(CMAKE_OBJDUMP "C:/Users/LENOVO/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32s3-elf-objdump.exe")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/clott/PROGETTI/GEI/JGuargian2p0/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/bootloader/esp-idf/cmake_install.cmake")
+  include("C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/bootloader/esp-idf/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -57,6 +57,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-  file(WRITE "C:/Users/clott/PROGETTI/GEI/JGuargian2p0/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/bootloader/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/bootloader/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

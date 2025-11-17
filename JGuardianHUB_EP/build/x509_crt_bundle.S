@@ -1,4 +1,4 @@
-/* * Data converted from C:/Users/clott/PROGETTI/GEI/JGuargian2p0/JGuardian2p0_HUB/JGuardianHUB_EP/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_EP/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)
