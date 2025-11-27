@@ -856,6 +856,13 @@ C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-i
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__esp_io_expander_tca9554/CMakeFiles/install.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__esp_io_expander_tca9554/CMakeFiles/install/local.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__esp_io_expander_tca9554/CMakeFiles/install/strip.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__led_strip/CMakeFiles/__idf_espressif__led_strip.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__led_strip/CMakeFiles/edit_cache.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__led_strip/CMakeFiles/rebuild_cache.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__led_strip/CMakeFiles/list_install_components.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__led_strip/CMakeFiles/install.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__led_strip/CMakeFiles/install/local.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/espressif__led_strip/CMakeFiles/install/strip.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/mb_example_common/CMakeFiles/__idf_mb_example_common.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/mb_example_common/CMakeFiles/edit_cache.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/mb_example_common/CMakeFiles/rebuild_cache.dir

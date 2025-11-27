@@ -30,31 +30,44 @@
 #include "nvs_flash.h"
 #include "driver/gpio.h"
 
+#include <stdio.h>
+#include <string.h>
+#include "esp_netif.h"
+#include "esp_eth.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "ethernet_init.h"
+
+#include "esp_io_expander_tca9554.h"
+#include "ledstrip.h"
+
+extern esp_io_expander_handle_t io_expander;
+
 static const char *TAG = "JGUARDIAN_HUB_EP";
 
 
 
-//************************* RELE ******************************//
-#define GPIO_OUTPUT_IO_LED    38
-#define GPIO_OUTPUT_PIN_SEL_LED  (1ULL<<GPIO_OUTPUT_IO_LED)
-
-#define GPIO_OUTPUT_IO_1    1
-#define GPIO_OUTPUT_PIN_SEL_0  (1ULL<<GPIO_OUTPUT_IO_1)
-
-#define GPIO_OUTPUT_IO_2    2
-#define GPIO_OUTPUT_PIN_SEL_1  (1ULL<<GPIO_OUTPUT_IO_2)
-
-#define GPIO_OUTPUT_IO_3    41
-#define GPIO_OUTPUT_PIN_SEL_2  (1ULL<<GPIO_OUTPUT_IO_3)
-
-#define GPIO_OUTPUT_IO_4    42
-#define GPIO_OUTPUT_PIN_SEL_3  (1ULL<<GPIO_OUTPUT_IO_4)
-
-#define GPIO_OUTPUT_IO_5    45
-#define GPIO_OUTPUT_PIN_SEL_4  (1ULL<<GPIO_OUTPUT_IO_5)
-
-#define GPIO_OUTPUT_IO_6    46
-#define GPIO_OUTPUT_PIN_SEL_5  (1ULL<<GPIO_OUTPUT_IO_6)
+////************************* RELE ******************************//
+//#define GPIO_OUTPUT_IO_LED    38
+//#define GPIO_OUTPUT_PIN_SEL_LED  (1ULL<<GPIO_OUTPUT_IO_LED)
+//
+//#define GPIO_OUTPUT_IO_1    1
+//#define GPIO_OUTPUT_PIN_SEL_0  (1ULL<<GPIO_OUTPUT_IO_1)
+//
+//#define GPIO_OUTPUT_IO_2    2
+//#define GPIO_OUTPUT_PIN_SEL_1  (1ULL<<GPIO_OUTPUT_IO_2)
+//
+//#define GPIO_OUTPUT_IO_3    41
+//#define GPIO_OUTPUT_PIN_SEL_2  (1ULL<<GPIO_OUTPUT_IO_3)
+//
+//#define GPIO_OUTPUT_IO_4    42
+//#define GPIO_OUTPUT_PIN_SEL_3  (1ULL<<GPIO_OUTPUT_IO_4)
+//
+//#define GPIO_OUTPUT_IO_5    45
+//#define GPIO_OUTPUT_PIN_SEL_4  (1ULL<<GPIO_OUTPUT_IO_5)
+//
+//#define GPIO_OUTPUT_IO_6    46
+//#define GPIO_OUTPUT_PIN_SEL_5  (1ULL<<GPIO_OUTPUT_IO_6)
 
 
 httpd_handle_t start_JGuardian_SERVER();

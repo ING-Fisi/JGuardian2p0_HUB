@@ -6,10 +6,12 @@
  */
 
 #include "JGuardianHUB.h"
+#include "driver/i2c_master.h"
 #include "esp_https_ota.h"
-#include "ethernet_init.h"
 
 httpd_handle_t server;
+esp_io_expander_handle_t io_expander = NULL;
+led_strip_handle_t led_strip = NULL;
 
 extern uint16_t array_modbus[128];
 
@@ -97,10 +99,17 @@ void ctrl_tsk(void) {
 	while (1) {
 
 		if (toggle) {
-			gpio_set_level(GPIO_OUTPUT_IO_LED, true);
+			/* Set the LED pixel using RGB from 0 (0%) to 255 (100%) for each
+			 * color */
+			for (int i = 0; i < LED_STRIP_LED_COUNT; i++) {
+				ESP_ERROR_CHECK(led_strip_set_pixel(led_strip, i, 5, 5, 5));
+			}
+			/* Refresh the strip to send data */
+			ESP_ERROR_CHECK(led_strip_refresh(led_strip));
 			toggle = false;
 		} else {
-			gpio_set_level(GPIO_OUTPUT_IO_LED, false);
+			/* Set all LED off to clear all pixels */
+			ESP_ERROR_CHECK(led_strip_clear(led_strip));
 			toggle = true;
 		}
 
@@ -127,80 +136,129 @@ void app_main(void) {
 
 	//*********************************************//
 
+	led_strip = configure_led();
+
+	i2c_master_bus_handle_t i2c_handle = NULL;
+	const i2c_master_bus_config_t bus_config = {
+		.i2c_port = I2C_NUM_0,
+		.sda_io_num = 42,
+		.scl_io_num = 41,
+		.clk_source = I2C_CLK_SRC_DEFAULT,
+	};
+	i2c_new_master_bus(&bus_config, &i2c_handle);
+
+	esp_io_expander_new_i2c_tca9554(
+		i2c_handle, ESP_IO_EXPANDER_I2C_TCA9554_ADDRESS_000, &io_expander);
+
+	esp_io_expander_print_state(io_expander);
+
 	//**********************************************************//
 
-	// zero-initialize the config structure.
-	gpio_config_t io_conf_led = {};
-	io_conf_led.intr_type = GPIO_INTR_DISABLE;
-	io_conf_led.mode = GPIO_MODE_INPUT_OUTPUT;
-	io_conf_led.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_LED;
-	io_conf_led.pull_down_en = 0;
-	io_conf_led.pull_up_en = 0;
-	gpio_config(&io_conf_led);
+	esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_0,
+							IO_EXPANDER_OUTPUT);
+	esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_0, 0);
 
-	// zero-initialize the config structure.
-	gpio_config_t io_conf_0 = {};
-	io_conf_0.intr_type = GPIO_INTR_DISABLE;
-	io_conf_0.mode = GPIO_MODE_INPUT_OUTPUT;
-	io_conf_0.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_0;
-	io_conf_0.pull_down_en = 0;
-	io_conf_0.pull_up_en = 0;
-	gpio_config(&io_conf_0);
+	esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_1,
+							IO_EXPANDER_OUTPUT);
+	esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_1, 0);
 
-	// zero-initialize the config structure.
-	gpio_config_t io_conf_1 = {};
-	io_conf_1.intr_type = GPIO_INTR_DISABLE;
-	io_conf_1.mode = GPIO_MODE_INPUT_OUTPUT;
-	io_conf_1.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_1;
-	io_conf_1.pull_down_en = 0;
-	io_conf_1.pull_up_en = 0;
-	gpio_config(&io_conf_1);
+	esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_2,
+							IO_EXPANDER_OUTPUT);
+	esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_2, 0);
 
-	// zero-initialize the config structure.
-	gpio_config_t io_conf_2 = {};
-	io_conf_2.intr_type = GPIO_INTR_DISABLE;
-	io_conf_2.mode = GPIO_MODE_INPUT_OUTPUT;
-	io_conf_2.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_2;
-	io_conf_2.pull_down_en = 0;
-	io_conf_2.pull_up_en = 0;
-	gpio_config(&io_conf_2);
+	esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_3,
+							IO_EXPANDER_OUTPUT);
+	esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_3, 0);
 
-	// zero-initialize the config structure.
-	gpio_config_t io_conf_3 = {};
-	io_conf_3.intr_type = GPIO_INTR_DISABLE;
-	io_conf_3.mode = GPIO_MODE_INPUT_OUTPUT;
-	io_conf_3.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_3;
-	io_conf_3.pull_down_en = 0;
-	io_conf_3.pull_up_en = 0;
-	gpio_config(&io_conf_3);
+	esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_4,
+							IO_EXPANDER_OUTPUT);
+	esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_4, 0);
 
-	// zero-initialize the config structure.
-	gpio_config_t io_conf_4 = {};
-	io_conf_4.intr_type = GPIO_INTR_DISABLE;
-	io_conf_4.mode = GPIO_MODE_INPUT_OUTPUT;
-	io_conf_4.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_4;
-	io_conf_4.pull_down_en = 0;
-	io_conf_4.pull_up_en = 0;
-	gpio_config(&io_conf_4);
+	esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_5,
+							IO_EXPANDER_OUTPUT);
+	esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_5, 0);
 
-	// zero-initialize the config structure.
-	gpio_config_t io_conf_5 = {};
-	io_conf_5.intr_type = GPIO_INTR_DISABLE;
-	io_conf_5.mode = GPIO_MODE_INPUT_OUTPUT;
-	io_conf_5.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_5;
-	io_conf_5.pull_down_en = 0;
-	io_conf_5.pull_up_en = 0;
-	gpio_config(&io_conf_5);
+	esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_6,
+							IO_EXPANDER_OUTPUT);
+	esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_6, 0);
 
-	gpio_set_level(GPIO_OUTPUT_IO_1, false);
-	gpio_set_level(GPIO_OUTPUT_IO_2, false);
-	gpio_set_level(GPIO_OUTPUT_IO_3, false);
-	gpio_set_level(GPIO_OUTPUT_IO_4, false);
-	gpio_set_level(GPIO_OUTPUT_IO_5, false);
-	gpio_set_level(GPIO_OUTPUT_IO_6, false);
-	gpio_set_level(GPIO_OUTPUT_IO_LED, true);
+	esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_7,
+							IO_EXPANDER_OUTPUT);
+	esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_7, 0);
 
-	//*********************************************************/
+
+	//	// zero-initialize the config structure.
+	//	gpio_config_t io_conf_led = {};
+	//	io_conf_led.intr_type = GPIO_INTR_DISABLE;
+	//	io_conf_led.mode = GPIO_MODE_INPUT_OUTPUT;
+	//	io_conf_led.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_LED;
+	//	io_conf_led.pull_down_en = 0;
+	//	io_conf_led.pull_up_en = 0;
+	//	gpio_config(&io_conf_led);
+	//
+	//	// zero-initialize the config structure.
+	//	gpio_config_t io_conf_0 = {};
+	//	io_conf_0.intr_type = GPIO_INTR_DISABLE;
+	//	io_conf_0.mode = GPIO_MODE_INPUT_OUTPUT;
+	//	io_conf_0.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_0;
+	//	io_conf_0.pull_down_en = 0;
+	//	io_conf_0.pull_up_en = 0;
+	//	gpio_config(&io_conf_0);
+	//
+	//	// zero-initialize the config structure.
+	//	gpio_config_t io_conf_1 = {};
+	//	io_conf_1.intr_type = GPIO_INTR_DISABLE;
+	//	io_conf_1.mode = GPIO_MODE_INPUT_OUTPUT;
+	//	io_conf_1.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_1;
+	//	io_conf_1.pull_down_en = 0;
+	//	io_conf_1.pull_up_en = 0;
+	//	gpio_config(&io_conf_1);
+	//
+	//	// zero-initialize the config structure.
+	//	gpio_config_t io_conf_2 = {};
+	//	io_conf_2.intr_type = GPIO_INTR_DISABLE;
+	//	io_conf_2.mode = GPIO_MODE_INPUT_OUTPUT;
+	//	io_conf_2.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_2;
+	//	io_conf_2.pull_down_en = 0;
+	//	io_conf_2.pull_up_en = 0;
+	//	gpio_config(&io_conf_2);
+	//
+	//	// zero-initialize the config structure.
+	//	gpio_config_t io_conf_3 = {};
+	//	io_conf_3.intr_type = GPIO_INTR_DISABLE;
+	//	io_conf_3.mode = GPIO_MODE_INPUT_OUTPUT;
+	//	io_conf_3.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_3;
+	//	io_conf_3.pull_down_en = 0;
+	//	io_conf_3.pull_up_en = 0;
+	//	gpio_config(&io_conf_3);
+	//
+	//	// zero-initialize the config structure.
+	//	gpio_config_t io_conf_4 = {};
+	//	io_conf_4.intr_type = GPIO_INTR_DISABLE;
+	//	io_conf_4.mode = GPIO_MODE_INPUT_OUTPUT;
+	//	io_conf_4.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_4;
+	//	io_conf_4.pull_down_en = 0;
+	//	io_conf_4.pull_up_en = 0;
+	//	gpio_config(&io_conf_4);
+	//
+	//	// zero-initialize the config structure.
+	//	gpio_config_t io_conf_5 = {};
+	//	io_conf_5.intr_type = GPIO_INTR_DISABLE;
+	//	io_conf_5.mode = GPIO_MODE_INPUT_OUTPUT;
+	//	io_conf_5.pin_bit_mask = GPIO_OUTPUT_PIN_SEL_5;
+	//	io_conf_5.pull_down_en = 0;
+	//	io_conf_5.pull_up_en = 0;
+	//	gpio_config(&io_conf_5);
+	//
+	//	gpio_set_level(GPIO_OUTPUT_IO_1, false);
+	//	gpio_set_level(GPIO_OUTPUT_IO_2, false);
+	//	gpio_set_level(GPIO_OUTPUT_IO_3, false);
+	//	gpio_set_level(GPIO_OUTPUT_IO_4, false);
+	//	gpio_set_level(GPIO_OUTPUT_IO_5, false);
+	//	gpio_set_level(GPIO_OUTPUT_IO_6, false);
+	//	gpio_set_level(GPIO_OUTPUT_IO_LED, true);
+	//
+	//	//*********************************************************/
 
 	// ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
 	// wifi_init_sta();
@@ -213,7 +271,9 @@ void app_main(void) {
 //***********************************************************************************************************///
 //***********************************************************************************************************///
 //***********************************************************************************************************///
-#define EXAMPLE_STATIC_IP_ADDR "10.100.0.69"
+#include "ethernet_init.h"
+
+#define EXAMPLE_STATIC_IP_ADDR "10.100.0.91"
 #define EXAMPLE_STATIC_NETMASK_ADDR "255.255.255.0"
 #define EXAMPLE_STATIC_GW_ADDR "10.100.0.1"
 #define EXAMPLE_MAIN_DNS_SERVER EXAMPLE_STATIC_GW_ADDR
@@ -324,7 +384,7 @@ void start_eth_connection(void) {
 		eth_netif_glues[0] = esp_eth_new_netif_glue(eth_handles[0]);
 		// Attach Ethernet driver to TCP/IP stack
 		ESP_ERROR_CHECK(esp_netif_attach(eth_netifs[0], eth_netif_glues[0]));
-	
+
 		example_set_static_ip(eth_netifs[0]);
 
 	} else {
