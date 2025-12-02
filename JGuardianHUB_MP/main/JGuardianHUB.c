@@ -345,6 +345,7 @@ static void eth_event_handler(void *arg, esp_event_base_t event_base,
 		break;
 	case ETHERNET_EVENT_DISCONNECTED:
 		ESP_LOGI(TAG, "Ethernet Link Down");
+		stop_JGuardian_SERVER(&server);
 		break;
 	case ETHERNET_EVENT_START:
 		ESP_LOGI(TAG, "Ethernet Started");

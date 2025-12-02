@@ -36,33 +36,33 @@ httpd_handle_t start_webserver(void);
 
 //*************************************//
 static esp_err_t request_get_modbus(httpd_req_t *req) {
-  char *buf;
-  size_t buf_len;
+	char *buf;
+	size_t buf_len;
 
-  char resp_str[100]; // = (const char*) req->user_ctx;
-  memset(resp_str, 0, sizeof(resp_str));
+	char resp_str[100]; // = (const char*) req->user_ctx;
+	memset(resp_str, 0, sizeof(resp_str));
 
-  if (request_modbus_info(resp_str) == 0) {
-    sprintf(resp_str, "MODBUS ERROR");
-  }
-  /* Send response with custom headers and body set as the
-   * string passed in user context*/
-  httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
+	if (request_modbus_info(resp_str) == 0) {
+		sprintf(resp_str, "MODBUS ERROR");
+	}
+	/* Send response with custom headers and body set as the
+	 * string passed in user context*/
+	httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
 
-  /* After sending the HTTP response the old HTTP request
-   * headers are lost. Check if HTTP request headers can be read now. */
-  //    if (httpd_req_get_hdr_value_len(req, "Host") == 0) {
-  //        ESP_LOGI(TAG, "Request headers lost");
-  //    }
-  return ESP_OK;
+	/* After sending the HTTP response the old HTTP request
+	 * headers are lost. Check if HTTP request headers can be read now. */
+	//    if (httpd_req_get_hdr_value_len(req, "Host") == 0) {
+	//        ESP_LOGI(TAG, "Request headers lost");
+	//    }
+	return ESP_OK;
 }
 
 static const httpd_uri_t get_modbus = {.uri = "/get_modbus",
-                                       .method = HTTP_GET,
-                                       .handler = request_get_modbus,
-                                       /* Let's pass response string in user
-                                        * context to demonstrate it's usage */
-                                       .user_ctx = "request_get_modbus!"};
+									   .method = HTTP_GET,
+									   .handler = request_get_modbus,
+									   /* Let's pass response string in user
+										* context to demonstrate it's usage */
+									   .user_ctx = "request_get_modbus!"};
 
 /* An HTTP GET handler */
 static esp_err_t request_get_rele_status(httpd_req_t *req) {
@@ -309,40 +309,47 @@ static esp_err_t stop_webserver(httpd_handle_t server) {
 	return httpd_stop(server);
 }
 
-static void disconnect_handler(void *arg, esp_event_base_t event_base,
-							   int32_t event_id, void *event_data) {
-	httpd_handle_t *server = (httpd_handle_t *)arg;
-	if (*server) {
-		ESP_LOGI(TAG, "Stopping webserver");
-		if (stop_webserver(*server) == ESP_OK) {
-			*server = NULL;
-			esp_restart();
-		} else {
-			ESP_LOGE(TAG, "Failed to stop http server");
-		}
-	}
-}
-
-static void connect_handler(void *arg, esp_event_base_t event_base,
-							int32_t event_id, void *event_data) {
-	httpd_handle_t *server = (httpd_handle_t *)arg;
-	if (*server == NULL) {
-		ESP_LOGI(TAG, "Starting webserver");
-		*server = start_webserver();
-	}
-}
+//static void disconnect_handler(void *arg, esp_event_base_t event_base,
+//							   int32_t event_id, void *event_data) {
+//	httpd_handle_t *server = (httpd_handle_t *)arg;
+//	if (*server) {
+//		ESP_LOGI(TAG, "Stopping webserver");
+//		if (stop_webserver(*server) == ESP_OK) {
+//			*server = NULL;
+//			esp_restart();
+//		} else {
+//			ESP_LOGE(TAG, "Failed to stop http server");
+//		}
+//	}
+//}
+//
+//static void connect_handler(void *arg, esp_event_base_t event_base,
+//							int32_t event_id, void *event_data) {
+//	httpd_handle_t *server = (httpd_handle_t *)arg;
+//	if (*server == NULL) {
+//		ESP_LOGI(TAG, "Starting webserver");
+//		*server = start_webserver();
+//	}
+//}
 
 httpd_handle_t start_JGuardian_SERVER() {
 	static httpd_handle_t server = NULL;
 
-	// ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP,
-	// &connect_handler, &server));
-	ESP_ERROR_CHECK(esp_event_handler_register(
-		WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED, &disconnect_handler, &server));
+//	ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP,
+//											   &connect_handler, &server));
+	// ESP_ERROR_CHECK(esp_event_handler_register(
+	// WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED, &disconnect_handler, &server));
 
 	server = start_webserver();
 
 	return server;
+}
+
+void stop_JGuardian_SERVER(httpd_handle_t *server) {
+
+	//stop_webserver(server);
+
+	esp_restart();
 }
 
 httpd_handle_t start_webserver(void) {
