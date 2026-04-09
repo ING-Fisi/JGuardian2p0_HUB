@@ -549,7 +549,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=123
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=124
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -597,7 +597,7 @@ C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS:INTERNAL=1
 //Details about finding Git
 FIND_PACKAGE_MESSAGE_DETAILS_Git:INTERNAL=[C:/Program Files/Git/cmd/git.exe][v2.50.1.windows.1()]
 //Details about finding Python3
-FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[C:/Users/LENOVO/.espressif/python_env/idf5.4_py3.13_env/Scripts/python.exe][cfound components: Interpreter ][v3.13.9()]
+FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[C:/Users/LENOVO/.espressif/python_env/idf5.4_py3.13_env/Scripts/python.exe][cfound components: Interpreter ][v3.13.12()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //ADVANCED property for variable: GIT_EXECUTABLE
@@ -610,7 +610,7 @@ _Python3_Compiler_REASON_FAILURE:INTERNAL=
 _Python3_Development_REASON_FAILURE:INTERNAL=
 _Python3_EXECUTABLE:INTERNAL=C:/Users/LENOVO/.espressif/python_env/idf5.4_py3.13_env/Scripts/python.exe
 //Python3 Properties
-_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;13;9;32;64;;;abi3;C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.2544.0_x64__qbz5n2kfra8p0\Lib;C:\Users\LENOVO\.espressif\python_env\idf5.4_py3.13_env\Lib;C:\Users\LENOVO\.espressif\python_env\idf5.4_py3.13_env\Lib\site-packages;C:\Users\LENOVO\.espressif\python_env\idf5.4_py3.13_env\Lib\site-packages
+_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;13;12;32;64;;;abi3;C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3312.0_x64__qbz5n2kfra8p0\Lib;C:\Users\LENOVO\.espressif\python_env\idf5.4_py3.13_env\Lib;C:\Users\LENOVO\.espressif\python_env\idf5.4_py3.13_env\Lib\site-packages;C:\Users\LENOVO\.espressif\python_env\idf5.4_py3.13_env\Lib\site-packages
 _Python3_INTERPRETER_SIGNATURE:INTERNAL=b9124e47a1551f2911dfab0c3793497e
 //NumPy reason failure
 _Python3_NumPy_REASON_FAILURE:INTERNAL=

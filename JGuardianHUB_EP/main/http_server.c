@@ -44,6 +44,12 @@ static esp_err_t request_get_modbus(httpd_req_t *req) {
 
 	if (request_modbus_info(resp_str) == 0) {
 		sprintf(resp_str, "MODBUS ERROR");
+		
+			char *str = malloc(100);
+			sprintf(str,"MODBUS ERROR %lu", get_curtimestamp());
+			Log2File(str);
+			free(str);
+			
 	}
 	/* Send response with custom headers and body set as the
 	 * string passed in user context*/

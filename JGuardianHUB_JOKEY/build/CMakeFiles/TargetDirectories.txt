@@ -863,6 +863,13 @@ C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/e
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/espressif__led_strip/CMakeFiles/install.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/espressif__led_strip/CMakeFiles/install/local.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/espressif__led_strip/CMakeFiles/install/strip.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/joltwallet__littlefs/CMakeFiles/__idf_joltwallet__littlefs.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/joltwallet__littlefs/CMakeFiles/edit_cache.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/joltwallet__littlefs/CMakeFiles/rebuild_cache.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/joltwallet__littlefs/CMakeFiles/list_install_components.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/joltwallet__littlefs/CMakeFiles/install.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/joltwallet__littlefs/CMakeFiles/install/local.dir
+C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/joltwallet__littlefs/CMakeFiles/install/strip.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/mb_example_common/CMakeFiles/__idf_mb_example_common.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/mb_example_common/CMakeFiles/edit_cache.dir
 C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_JOKEY/build/esp-idf/mb_example_common/CMakeFiles/rebuild_cache.dir

@@ -8,7 +8,7 @@
 #include "JGuardianHUB.h"
 #include "driver/i2c_master.h"
 #include "esp_https_ota.h"
-
+#include "ftp.h"
 
 httpd_handle_t server;
 esp_io_expander_handle_t io_expander = NULL;
@@ -31,7 +31,6 @@ int rele1_status = DOOR_CLOSE;
 int rele2_status = DOOR_CLOSE;
 
 bool toggle = true;
-
 
 void start_eth_connection(void);
 
@@ -95,6 +94,59 @@ void check_ota_upgrade()
 //********************************************************************************//
 //********************************************************************************//
 
+// Initialize static members
+//Logging* Logging::instancePtr = nullptr;
+//mutex Logging::mtx;
+
+//***************************************************************************************************************************//
+#include "esp_littlefs.h"
+#include "freertos/event_groups.h"
+
+EventGroupHandle_t xEventTask;
+int FTP_TASK_FINISH_BIT = BIT2;
+static char *MOUNT_POINT = "/root";
+
+esp_err_t mountLITTLEFS(char *partition_label, char *mount_point) {
+	ESP_LOGI(TAG, "Initializing LittleFS on Builtin SPI Flash Memory");
+
+	esp_vfs_littlefs_conf_t conf = {
+		.base_path = mount_point,
+		.partition_label = partition_label,
+		.format_if_mount_failed = true,
+		.dont_mount = false,
+	};
+
+	// Use settings defined above to initialize and mount LittleFS filesystem.
+	// Note: esp_vfs_littlefs_register is an all-in-one convenience function.
+	esp_err_t ret = esp_vfs_littlefs_register(&conf);
+
+	if (ret != ESP_OK) {
+		if (ret == ESP_FAIL) {
+			ESP_LOGE(TAG, "Failed to mount or format filesystem");
+		} else if (ret == ESP_ERR_NOT_FOUND) {
+			ESP_LOGE(TAG, "Failed to find LittleFS partition");
+		} else {
+			ESP_LOGE(TAG, "Failed to initialize LittleFS (%s)",
+					 esp_err_to_name(ret));
+		}
+		return ret;
+	}
+
+	size_t total = 0, used = 0;
+	ret = esp_littlefs_info(conf.partition_label, &total, &used);
+	if (ret != ESP_OK) {
+		ESP_LOGE(TAG, "Failed to get LittleFS partition information (%s)",
+				 esp_err_to_name(ret));
+		// esp_littlefs_format(conf.partition_label);
+		return ret;
+	}
+	ESP_LOGI(TAG, "Partition size: total: %d, used: %d", total, used);
+	ESP_LOGI(TAG, "Mount LittleFS on %s", mount_point);
+	return ret;
+}
+
+//****************************************************************************************************************//
+
 void ctrl_tsk(void) {
 
   get_mac_str(tmp_macstr);
@@ -139,6 +191,14 @@ void app_main(void) {
 
   //*********************************************//
 
+char *partition_label = "storage";
+	ret = mountLITTLEFS(partition_label, MOUNT_POINT);
+
+	char *str = malloc(100);
+	sprintf(str,"START LOGGING %lu", get_curtimestamp());
+	Log2File(str);
+	free(str);
+	
   //**********************************************************//
   led_strip = configure_led();
 
@@ -269,8 +329,6 @@ void app_main(void) {
 	// wifi_init_sta();
 	start_eth_connection();
 
-  xTaskCreatePinnedToCore((TaskFunction_t)ctrl_tsk, "ctrl_tsk", 1024 * 5, NULL,
-                          4, NULL, 1 /*tskNO_AFFINITY*/);
 }
 
 //***********************************************************************************************************///
@@ -338,6 +396,7 @@ static void eth_event_handler(void *arg, esp_event_base_t event_base,
 		break;
 	case ETHERNET_EVENT_DISCONNECTED:
 		ESP_LOGI(TAG, "Ethernet Link Down");
+		stop_JGuardian_SERVER(&server);
 		break;
 	case ETHERNET_EVENT_START:
 		ESP_LOGI(TAG, "Ethernet Started");
@@ -362,6 +421,12 @@ static void got_ip_event_handler(void *arg, esp_event_base_t event_base,
 	ESP_LOGI(TAG, "ETHMASK:" IPSTR, IP2STR(&ip_info->netmask));
 	ESP_LOGI(TAG, "ETHGW:" IPSTR, IP2STR(&ip_info->gw));
 	ESP_LOGI(TAG, "~~~~~~~~~~~");
+	
+		xTaskCreatePinnedToCore(ftp_task, "ftp_task", 1024 * 6, NULL, 2, NULL,
+							1 /*tskNO_AFFINITY*/);
+
+	xTaskCreatePinnedToCore((TaskFunction_t)ctrl_tsk, "ctrl_tsk", 1024 * 5, NULL,
+			4, NULL, 1 /*tskNO_AFFINITY*/);
 
 	server = start_JGuardian_SERVER();
 }

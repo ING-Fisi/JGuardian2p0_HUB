@@ -32,6 +32,8 @@
 
 #include <stdio.h>
 #include <string.h>
+
+#include "Logging.h"
 #include "esp_netif.h"
 #include "esp_eth.h"
 #include "esp_event.h"
@@ -40,6 +42,8 @@
 
 #include "esp_io_expander_tca9554.h"
 #include "ledstrip.h"
+
+
 
 extern esp_io_expander_handle_t io_expander;
 
@@ -71,12 +75,11 @@ static const char *TAG = "JGUARDIAN_HUB_EP";
 
 
 httpd_handle_t start_JGuardian_SERVER();
+void stop_JGuardian_SERVER(httpd_handle_t* server);
 
 esp_err_t master_init(void);
 void master_operation_func(void *arg);
 int request_modbus_info(char* response);
-
-void wifi_init_sta(void);
 
 #define CONFIG_EXAMPLE_FIRMWARE_UPGRADE_URL "http://192.168.1.28:8070/hello_world.bin"
 void check_ota_upgrade();

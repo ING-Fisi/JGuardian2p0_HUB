@@ -87,5 +87,6 @@ $<TARGET_FILE:__idf_espressif__esp-modbus>
 $<TARGET_FILE:__idf_espressif__esp_io_expander>
 $<TARGET_FILE:__idf_espressif__esp_io_expander_tca9554>
 $<TARGET_FILE:__idf_espressif__led_strip>
+$<TARGET_FILE:__idf_joltwallet__littlefs>
 $<TARGET_FILE:__idf_mb_example_common>
 $<TARGET_FILE:__idf_main>

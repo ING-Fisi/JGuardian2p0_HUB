@@ -42,6 +42,9 @@
 #include "esp_io_expander_tca9554.h"
 #include "ledstrip.h"
 
+
+#include "Logging.h"
+
 extern esp_io_expander_handle_t io_expander;
 
 static const char *TAG = "JGUARDIAN_HUB_MP";

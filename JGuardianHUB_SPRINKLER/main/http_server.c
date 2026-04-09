@@ -285,40 +285,41 @@ static esp_err_t stop_webserver(httpd_handle_t server) {
 	return httpd_stop(server);
 }
 
-static void disconnect_handler(void *arg, esp_event_base_t event_base,
-							   int32_t event_id, void *event_data) {
-	httpd_handle_t *server = (httpd_handle_t *)arg;
-	if (*server) {
-		ESP_LOGI(TAG, "Stopping webserver");
-		if (stop_webserver(*server) == ESP_OK) {
-			*server = NULL;
-			esp_restart();
-		} else {
-			ESP_LOGE(TAG, "Failed to stop http server");
-		}
-	}
-}
-
-static void connect_handler(void *arg, esp_event_base_t event_base,
-							int32_t event_id, void *event_data) {
-	httpd_handle_t *server = (httpd_handle_t *)arg;
-	if (*server == NULL) {
-		ESP_LOGI(TAG, "Starting webserver");
-		*server = start_webserver();
-	}
-}
+//static void disconnect_handler(void *arg, esp_event_base_t event_base,
+//							   int32_t event_id, void *event_data) {
+//	httpd_handle_t *server = (httpd_handle_t *)arg;
+//	if (*server) {
+//		ESP_LOGI(TAG, "Stopping webserver");
+//		if (stop_webserver(*server) == ESP_OK) {
+//			*server = NULL;
+//			esp_restart();
+//		} else {
+//			ESP_LOGE(TAG, "Failed to stop http server");
+//		}
+//	}
+//}
+//
+//static void connect_handler(void *arg, esp_event_base_t event_base,
+//							int32_t event_id, void *event_data) {
+//	httpd_handle_t *server = (httpd_handle_t *)arg;
+//	if (*server == NULL) {
+//		ESP_LOGI(TAG, "Starting webserver");
+//		*server = start_webserver();
+//	}
+//}
 
 httpd_handle_t start_JGuardian_SERVER() {
 	static httpd_handle_t server = NULL;
 
-	// ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP,
-	// &connect_handler, &server));
-	ESP_ERROR_CHECK(esp_event_handler_register(
-		WIFI_EVENT, WIFI_EVENT_STA_DISCONNECTED, &disconnect_handler, &server));
-
 	server = start_webserver();
 
 	return server;
+}
+
+void stop_JGuardian_SERVER(httpd_handle_t *server) {
+
+	esp_restart();
+
 }
 
 httpd_handle_t start_webserver(void) {

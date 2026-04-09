@@ -574,6 +574,11 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/joltwallet__littlefs/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("C:/Users/LENOVO/PROGETTI/GEI/JGuardian2p0_HUB/JGuardianHUB_SPRINKLER/build/esp-idf/mb_example_common/cmake_install.cmake")
 endif()
 

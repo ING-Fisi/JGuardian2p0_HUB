@@ -34,19 +34,26 @@
 
 httpd_handle_t start_webserver(void);
 
+//*************************************//
 static esp_err_t request_get_modbus(httpd_req_t *req) {
-  char *buf;
-  size_t buf_len;
+	char *buf;
+	size_t buf_len;
 
-  char resp_str[100]; // = (const char*) req->user_ctx;
-  memset(resp_str, 0, sizeof(resp_str));
+	char resp_str[100]; // = (const char*) req->user_ctx;
+	memset(resp_str, 0, sizeof(resp_str));
 
-  if (request_modbus_info(resp_str) == 0) {
-    sprintf(resp_str, "MODBUS ERROR");
-  }
-  /* Send response with custom headers and body set as the
-   * string passed in user context*/
-  httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
+	if (request_modbus_info(resp_str) == 0) {
+		sprintf(resp_str, "MODBUS ERROR");
+		
+			char *str = malloc(100);
+			sprintf(str,"MODBUS ERROR %lu", get_curtimestamp());
+			Log2File(str);
+			free(str);
+			
+	}
+	/* Send response with custom headers and body set as the
+	 * string passed in user context*/
+	httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
 
   /* After sending the HTTP response the old HTTP request
    * headers are lost. Check if HTTP request headers can be read now. */
@@ -332,7 +339,6 @@ static esp_err_t stop_webserver(httpd_handle_t server) {
 //}
 
 httpd_handle_t start_JGuardian_SERVER() {
-	
 	static httpd_handle_t server = NULL;
 
 	server = start_webserver();
@@ -340,8 +346,7 @@ httpd_handle_t start_JGuardian_SERVER() {
 	return server;
 }
 
-
-void stop_JGuardian_SERVER(httpd_handle_t* server) {
+void stop_JGuardian_SERVER(httpd_handle_t *server) {
 
 	esp_restart();
 
